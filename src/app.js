@@ -3,77 +3,57 @@ import ReactDOM from 'react-dom';
 import marked from 'marked';
 import 'Styles/style.scss';
 
-class Square extends React.Component {
-    render () {
-        return (
-            <button className="square" onClick={() => this.props.onClick()}>
-                {this.props.value}
-            </button>
-        );
-    }
+function createMarkup(arg) {
+  return {__html: arg};
 }
 
-class Board extends React.Component {
-    constructor (props) {
-        super(props);
-        this.state = {squares: Array(9).fill(null),};
+function MyComponent(props) {
+  return <div dangerouslySetInnerHTML={createMarkup(props.value)}  />;
+}
+class EssayForm extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        value: '',
+        code: ''
+      };
+  
+      this.handleChange = this.handleChange.bind(this);
     }
-
-    handleClick (i) {
-        const squares = this.state.squares.slice();
-        squares[i] = 'X';
-        this.setState({ squares });
+  
+    handleChange(event) {
+      this.setState(
+        {
+          code: marked(this.state.value),
+          value: event.target.value
+        }
+        
+      );
     }
-
-    renderSquare (i) {
-        return (
-            <Square
-                value={this.state.squares[i]}
-                onClick={() => this.handleClick(i)}
-            />
-        );
+  
+    handleSubmit(event) {
+      alert('An essay was submitted: ' + this.state.value);
+      event.preventDefault();
     }
-
-    render () {
-        const status = 'Next player: X';
-
-        return (
-            <div>
-                <div className="status">{status}</div>
-                <div className="board-row">
-                    {this.renderSquare(0)}{this.renderSquare(1)}{this.renderSquare(2)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(3)}{this.renderSquare(4)}{this.renderSquare(5)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(6)}{this.renderSquare(7)}{this.renderSquare(8)}
-                </div>
+  
+    render() {
+      return (
+          <div className="grid-x padding-x">
+            <div className="cell small-6"> 
+              <textarea value={this.state.value} onChange={this.handleChange} />
             </div>
-        );
-    }
-}
-
-class Game extends React.Component {
-    render () {
-        return (
-            <div className="game">
-                <div className="game-board">
-                    <Board />
-                </div>
-                <div className="game-info">
-                    <div>{/* status */}</div>
-                    <ol>{/* TODO */}</ol>
-                </div>
+            <div className="cell small-6"> 
+             <MyComponent value={this.state.code}/>
             </div>
-        );
+          </div>
+          );
     }
-}
+  }
 
 // ========================================
 
 ReactDOM.render(
-    <Game />,
+    <EssayForm />,
     document.getElementById('root'),
 );
 
