@@ -17,7 +17,7 @@ class EssayForm extends React.Component {
         value: '',
         code: ''
       };
-  
+      // why bind(this)?
       this.handleChange = this.handleChange.bind(this);
     }
   
