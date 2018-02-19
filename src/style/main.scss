@@ -1,0 +1,13 @@
+.MDRenderer {
+    &__input {
+        width: 100%;
+        height: 50vh;
+        resize: none;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+    &__output {
+        border: 1px solid lightgrey;
+        height: 100%;
+    }
+}
