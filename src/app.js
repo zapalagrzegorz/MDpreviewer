@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom';
 import marked from 'marked';
 import 'Styles/style.scss';
 
+// custom renderer for markedJs
+let renderer = new marked.Renderer();
+renderer.link = function (href, title, text) {
+  return `<a target="_blank" title=${title} href=${href}>${text}</a>`;
+};
+
 // helper function, not a functional component
 function createMarkup(arg) {
   // zwraca obiekt z property __html
@@ -26,7 +32,42 @@ class App extends React.Component {
       super(props);
       this.state = {
         // value: '',
-        code: ''
+        initialValue: `# hello, This is Markdown Live Preview
+
+----
+## what is Markdown?
+see [Wikipedia](http://en.wikipedia.org/wiki/Markdown)
+        
+> Markdown is a lightweight markup language, originally created by John Gruber and Aaron Swartz allowing people "to write using an easy-to-read, easy-to-write plain text format, then convert it to structurally valid XHTML (or HTML)".
+        
+----
+## usage
+1. Write markdown text in this textarea.
+2. Click 'HTML Preview' button.
+        
+----
+## markdown quick reference
+# headers
+        
+*emphasis*
+        
+**strong**
+        
+* list
+        
+>block quote
+        
+code (4 spaces indent)
+[links](http://wikipedia.org)
+        
+----
+## changelog
+* 17-Feb-2013 re-design
+
+----
+## thanks
+* [markdown-js](https://github.com/evilstreak/markdown-js)`,
+code: ``
       };
       // ?!
       this.handleChange = this.handleChange.bind(this);
@@ -37,10 +78,19 @@ class App extends React.Component {
       this.setState(
         {
           code: newHtml,
+          initialValue: event.target.value    
           // value: event.target.value
         }
         
       );
+    }
+    componentDidMount() {
+
+      this.setState(
+        {
+          code: marked(this.state.initialValue, { renderer: renderer })
+          // value: event.target.value
+        });
     }
   
     render() {
@@ -50,7 +100,7 @@ class App extends React.Component {
           <div className="grid-container">
             <div className="grid-x grid-padding-x MDRenderer">
               <div className="cell small-12 medium-6"> 
-                <textarea  className="MDRenderer__input" /* value={this.state.value} */ onChange={this.handleChange} />
+                <textarea  className="MDRenderer__input" value={this.state.initialValue} onChange={this.handleChange} />
               </div>
               <div className="cell small-12 medium-6"> 
               <MDoutput  value={this.state.code}/>
