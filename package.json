@@ -33,14 +33,13 @@
     "foundation-sites": "^6.4.4-rc1",
     "highlight.js": "^9.12.0",
     "marked": "^0.3.14",
-    "pygmentize-bundled": "^2.3.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.40",
-    "@babel/preset-react": "^7.0.0-beta.40",
     "@babel/preset-env": "^7.0.0-beta.40",
+    "@babel/preset-react": "^7.0.0-beta.40",
     "autoprefixer": "^7.2.6",
     "babel-cli": "^6.26.0",
     "babel-loader": "^8.0.0-beta.0",
