@@ -4,7 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const packageNpm = require('./package.json');
+// const packageNpm = require('./package.json');
 
 const extractSass = new ExtractTextPlugin({
     filename: '[name].[contenthash].css',
@@ -14,7 +14,7 @@ const extractSass = new ExtractTextPlugin({
 
 const vendorChunkPlugin = new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
-// Specify the common bundle's name.
+    // Specify the common bundle's name.
 });
 
 const manifestChunkPlugin = new webpack.optimize.CommonsChunkPlugin({ name: 'manifest' });
@@ -43,25 +43,15 @@ module.exports = {
     },
     externals: [
         'foundation-sites',
+        // 'highlight.js',
     ],
     module: {
         rules: [
+            // babel
             {
                 test: /\.js$/,
                 include: path.join(__dirname, 'src'),
                 use: { loader: 'babel-loader' },
-            },
-            {
-                test: /\.(?:sass|scss)$/,
-                use: extractSass.extract({
-                    use: [{ loader: 'css-loader' },
-                        {
-                            loader: 'sass-loader',
-                            query: { includePaths: [path.resolve(__dirname, 'node_modules')] },
-                        },
-                    ], // use style-loader in development
-                    fallback: 'style-loader',
-                }),
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
