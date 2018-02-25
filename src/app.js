@@ -1,13 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import marked from 'marked';
+import highlightJs from 'highlight.js'
 import 'Styles/style.scss';
 
+
 // custom renderer for markedJs
-let renderer = new marked.Renderer();
+const renderer = new marked.Renderer();
 renderer.link = function (href, title, text) {
   return `<a target="_blank" title=${title} href=${href}>${text}</a>`;
 };
+marked.setOptions({
+  renderer: renderer,
+  highlight: function (code) {
+    return highlightJs.highlightAuto(code).value;
+  }
+});
 
 // helper function, not a functional component
 function createMarkup(arg) {
@@ -32,41 +40,7 @@ class App extends React.Component {
       super(props);
       this.state = {
         // value: '',
-        initialValue: `# hello, This is Markdown Live Preview
-
-----
-## what is Markdown?
-see [Wikipedia](http://en.wikipedia.org/wiki/Markdown)
-        
-> Markdown is a lightweight markup language, originally created by John Gruber and Aaron Swartz allowing people "to write using an easy-to-read, easy-to-write plain text format, then convert it to structurally valid XHTML (or HTML)".
-        
-----
-## usage
-1. Write markdown text in this textarea.
-2. Click 'HTML Preview' button.
-        
-----
-## markdown quick reference
-# headers
-        
-*emphasis*
-        
-**strong**
-        
-* list
-        
->block quote
-        
-code (4 spaces indent)
-[links](http://wikipedia.org)
-        
-----
-## changelog
-* 17-Feb-2013 re-design
-
-----
-## thanks
-* [markdown-js](https://github.com/evilstreak/markdown-js)`,
+        initialValue: '# This is an tag\n## This is an tag\n###### This is an h6 tag\nhttps://github.com - automatic!\n[GitHub](https://github.com)\n\nI think you should use an`<addr>` element here instead.\n\nAs Kanye West said:\n\n > We\'re living the future so\n> the present is our past.\n\n1. Item 1\n1. Item 2\n1. Item 3\n   1. Item 3a\n   1. Item 3b\n\nIf you want to embed images, this is how you do it:\n\n![Image of FCC](https://avatars2.githubusercontent.com/u/9892522?v=3&s=400)\n\nIt\'s very easy to make some words **bold** and other words *italic* with Markdown. You can even [link to Google!](https://google.com)\n\nAnd if you\'d like to use syntax highlighting, include the language:\n```javascript\nmarked.setOptions({\n    renderer: renderer,highlight: function (code) {\n        return highlightJs.highlightAuto(code).value;\n    }\n});```',
 code: ``
       };
       // ?!
@@ -88,7 +62,7 @@ code: ``
 
       this.setState(
         {
-          code: marked(this.state.initialValue, { renderer: renderer })
+          code: marked(this.state.initialValue)
           // value: event.target.value
         });
     }

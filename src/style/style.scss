@@ -2,6 +2,7 @@
 @import 'settings';
 @import '~foundation-sites/scss/foundation';
 
+
 // po zaimportowaniu, może je 'includować' do kodu wynikowego
 // @import 'motion-ui';
 
@@ -56,3 +57,4 @@
 // @include motion-ui-animations;
 
 @import './main.scss';
+@import '~highlight.js/styles/zenburn.css';
