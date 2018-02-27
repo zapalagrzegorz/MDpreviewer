@@ -4,7 +4,7 @@ import marked from 'marked';
 import highlightJs from 'highlight.js'
 
 import 'Styles/style.scss';
-import MDoutput from './mdOutput';
+import MDoutput from './MdOutput';
 
 // custom renderer for markedJs
 const renderer = new marked.Renderer();

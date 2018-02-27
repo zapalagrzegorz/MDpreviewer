@@ -49,7 +49,7 @@ module.exports = {
         rules: [
             // babel
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 include: path.join(__dirname, 'src'),
                 use: { loader: 'babel-loader' },
             },
@@ -63,5 +63,8 @@ module.exports = {
             },
         ],
     },
-    resolve: { alias: { Styles: path.resolve(__dirname, 'src/style/') } },
+    resolve: {
+        extensions: ['.js', '.json', '.jsx', '.css'],
+        alias: { Styles: path.resolve(__dirname, 'src/style/') },
+    },
 };

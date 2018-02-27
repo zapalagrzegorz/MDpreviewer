@@ -13,5 +13,5 @@ export default function MDoutput (props) {
     // dangerouslySetInnerHTML to JSX attribute
     // który pozwala na dynamiczne określanie markup'u
     // czemu nie można przekazać gotowego html'a? Nie wiem, dokumentacja przekazuje to do funkcji
-    return <div className="MDRenderer__output" dangerouslySetInnerHTML={createMarkup(props.value)} />;
+    return (<div className="MDRenderer__output" dangerouslySetInnerHTML={createMarkup(props.value)} />);
 }
