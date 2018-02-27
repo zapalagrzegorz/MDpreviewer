@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import marked from 'marked';
 import highlightJs from 'highlight.js'
-import 'Styles/style.scss';
 
+import 'Styles/style.scss';
+import MDoutput from './mdOutput';
 
 // custom renderer for markedJs
 const renderer = new marked.Renderer();
@@ -17,20 +18,7 @@ marked.setOptions({
   }
 });
 
-// helper function, not a functional component
-function createMarkup(arg) {
-  // zwraca obiekt z property __html
-  return {__html: arg};
-}
 
-// functional component
-// https://reactjs.org/docs/components-and-props.html
-function MDoutput(props) {
-  // dangerouslySetInnerHTML to JSX attribute
-  // który pozwala na dynamiczne określanie markup'u
-  // czemu nie można przekazać gotowego html'a? Nie wiem, dokumentacja przekazuje to do funkcji
-  return <div className="MDRenderer__output" dangerouslySetInnerHTML={createMarkup(props.value)}  />;
-}
 
 // gdy komponent klasowy odbiera props, to nie musi mieć zdefiniowanej właściwość props
 // tylko gdy nie ma własnego stanu -> nie ma własnego konstruktora
@@ -41,7 +29,7 @@ class App extends React.Component {
       this.state = {
         // value: '',
         initialValue: '# This is an tag\n## This is an tag\n###### This is an h6 tag\nhttps://github.com - automatic!\n[GitHub](https://github.com)\n\nI think you should use an`<addr>` element here instead.\n\nAs Kanye West said:\n\n > We\'re living the future so\n> the present is our past.\n\n1. Item 1\n1. Item 2\n1. Item 3\n   1. Item 3a\n   1. Item 3b\n\nIf you want to embed images, this is how you do it:\n\n![Image of FCC](https://avatars2.githubusercontent.com/u/9892522?v=3&s=400)\n\nIt\'s very easy to make some words **bold** and other words *italic* with Markdown. You can even [link to Google!](https://google.com)\n\nAnd if you\'d like to use syntax highlighting, include the language:\n```javascript\nmarked.setOptions({\n    renderer: renderer,highlight: function (code) {\n        return highlightJs.highlightAuto(code).value;\n    }\n});```',
-code: ``
+        code: ``
       };
       // ?!
       this.handleChange = this.handleChange.bind(this);
@@ -58,6 +46,8 @@ code: ``
         
       );
     }
+    // life cycle komponentu,
+    // zdarzenie po załadowaniu elementu do DOM
     componentDidMount() {
 
       this.setState(
