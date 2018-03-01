@@ -1,30 +1,48 @@
 const path = require('path');
 const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const common = require('./webpack.common.js');
 
 const extractSass = new ExtractTextPlugin({
-    filename: '[name].[contenthash].css',
+    filename: 'styles.css',
     disable: process.env.NODE_ENV === 'development',
     allChunks: true,
 });
 
 module.exports = merge(common, {
+    output: {
+        filename: '[name].[hash].js',
+        // chunkFilename: '[name].bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+    },
     devtool: 'inline-source-map',
-    devServer: { contentBase: './dist' },
+    devServer: {
+        contentBase: './dist',
+        hot: true,
+    },
     module: {
-        rules: [{
-            test: /\.(?:sass|scss)$/,
-            use: extractSass.extract({
-                use: [{ loader: 'css-loader' },
+        rules: [
+            {
+                test: /\.(?:css|sass|scss)$/,
+                use: ['css-hot-loader'].concat(extractSass.extract({
+                    use: [{
+                        loader: 'css-loader',
+                    },
                     {
                         loader: 'sass-loader',
-                        query: { includePaths: [path.resolve(__dirname, 'node_modules')] },
+                        query: {
+                            includePaths: [path.resolve(__dirname, 'node_modules')],
+                        },
                     },
-                ], // use style-loader in development
-                fallback: 'style-loader',
-            }),
-        }],
+                    ], // use style-loader in development
+                    fallback: 'style-loader',
+                })),
+            }],
     },
-    plugins: [extractSass],
+    plugins: [
+        extractSass,
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin(),
+    ],
 });

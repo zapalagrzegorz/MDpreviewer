@@ -36,11 +36,7 @@ module.exports = {
         manifestChunkPlugin,
     ],
 
-    output: {
-        filename: '[name].[chunkhash].js',
-        // chunkFilename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist'),
-    },
+
     externals: [
         'foundation-sites',
         // 'highlight.js',

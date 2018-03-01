@@ -83,3 +83,11 @@ ReactDOM.render(
     document.getElementById('root'),
 );
 
+if (module.hot) {
+
+  module.hot.accept();
+  module.hot.dispose(() => {
+    // usuwa dotychczasowy element i uruchamia skrypt ponownie
+    });
+
+}

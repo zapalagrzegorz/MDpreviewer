@@ -15,6 +15,11 @@ const uglifyJsPlugin = new UglifyJSPlugin();
 const hashedModuleIdsPlugin = new webpack.HashedModuleIdsPlugin();
 
 module.exports = merge(common, {
+    output: {
+        filename: '[name].[chunkhash].js',
+        // chunkFilename: '[name].bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+    },
     module: {
         rules: [{
             test: /\.(?:sass|scss)$/,
