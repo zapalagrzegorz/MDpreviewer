@@ -21,7 +21,7 @@ const manifestChunkPlugin = new webpack.optimize.CommonsChunkPlugin({ name: 'man
 
 module.exports = {
     entry: {
-        app: './src/app.js',
+        app: './src/app.jsx',
         // vendor: ['./node_modules/foundation-sites/dist/js/plugins/foundation.abide.js'],
     },
     plugins: [

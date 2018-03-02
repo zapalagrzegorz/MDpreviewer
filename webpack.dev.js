@@ -26,15 +26,11 @@ module.exports = merge(common, {
             {
                 test: /\.(?:css|sass|scss)$/,
                 use: ['css-hot-loader'].concat(extractSass.extract({
-                    use: [{
-                        loader: 'css-loader',
-                    },
-                    {
-                        loader: 'sass-loader',
-                        query: {
-                            includePaths: [path.resolve(__dirname, 'node_modules')],
+                    use: [{loader: 'css-loader', },
+                        {
+                            loader: 'sass-loader',
+                            query: {includePaths: [path.resolve(__dirname, 'node_modules')], },
                         },
-                    },
                     ], // use style-loader in development
                     fallback: 'style-loader',
                 })),
