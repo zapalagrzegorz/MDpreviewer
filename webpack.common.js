@@ -25,6 +25,7 @@ module.exports = {
         app: './src/app.js',
         // vendor: ['./node_modules/foundation-sites/dist/js/plugins/foundation.abide.js'],
     },
+    // skopiowane z https://gist.github.com/gricard/e8057f7de1029f9036a990af95c62ba8
     optimization: {
         splitChunks: {
             cacheGroups: {
