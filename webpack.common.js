@@ -12,17 +12,28 @@ const extractSass = new ExtractTextPlugin({
     allChunks: true,
 });
 
-const vendorChunkPlugin = new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    // Specify the common bundle's name.
-});
+// const vendorChunkPlugin = new webpack.optimize.CommonsChunkPlugin({
+//     name: 'vendor',
+//     // Specify the common bundle's name.
+// });
 
-const manifestChunkPlugin = new webpack.optimize.CommonsChunkPlugin({ name: 'manifest' });
+
+// const manifestChunkPlugin = new webpack.optimize.CommonsChunkPlugin({ name: 'manifest' });
 
 module.exports = {
     entry: {
         app: './src/app.js',
         // vendor: ['./node_modules/foundation-sites/dist/js/plugins/foundation.abide.js'],
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    name: 'vendors',
+                    chunks: 'all',
+                },
+            },
+        },
     },
     plugins: [
         new CleanWebpackPlugin(['dist']),
@@ -32,8 +43,8 @@ module.exports = {
         }),
         extractSass,
         // vendor musi być pierwszy
-        vendorChunkPlugin,
-        manifestChunkPlugin,
+        // vendorChunkPlugin,
+        // manifestChunkPlugin,
     ],
 
 

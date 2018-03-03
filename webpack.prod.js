@@ -37,6 +37,7 @@ module.exports = merge(common, {
             }),
         }],
     },
+    mode: 'production',
     plugins: [
         uglifyJsPlugin,
         hashedModuleIdsPlugin,

@@ -21,6 +21,7 @@ module.exports = merge(common, {
         contentBase: './dist',
         hot: true,
     },
+    mode: 'development',
     module: {
         rules: [
             {
