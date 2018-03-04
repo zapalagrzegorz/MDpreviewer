@@ -24,6 +24,7 @@ class FilterableProductTable extends React.Component {
         this.setState({ inStockOnly });
     }
     render () {
+        const { products } = this.props;
         return (
             <div className="grid-container">
                 <SearchBar
@@ -33,7 +34,7 @@ class FilterableProductTable extends React.Component {
                     isInStock={this.state.inStockOnly} 
               />
                 <ProductTable
-                    products={this.props.products}
+                    products={products}
                     sortValue={this.state.search}
                     isInStock={this.state.inStockOnly}
               />
