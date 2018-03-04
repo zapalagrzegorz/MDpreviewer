@@ -1,5 +1,5 @@
 const path = require('path');
-const webpack = require('webpack');
+// const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -22,7 +22,7 @@ const extractSass = new ExtractTextPlugin({
 
 module.exports = {
     entry: {
-        app: './src/app.js',
+        app: './src/app',
         // vendor: ['./node_modules/foundation-sites/dist/js/plugins/foundation.abide.js'],
     },
     // skopiowane z https://gist.github.com/gricard/e8057f7de1029f9036a990af95c62ba8
