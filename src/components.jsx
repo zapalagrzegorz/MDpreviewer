@@ -6,7 +6,7 @@ export class SearchBar extends React.Component {
         super(props);
         // https://reactjs.org/docs/thinking-in-react.html#step-4-identify-where-your-state-should-live
         // nie musi mieć swojego stanu, bo istnieje common owner component
-        // app potrzebuje wartości value, do przekazania jej tabeli
+        // App potrzebuje wartości value, do przekazania jej tabeli
         // this.state = {
         //     value: '',
         // };
@@ -21,13 +21,13 @@ export class SearchBar extends React.Component {
         this.props.onInputTextChange(value);
         // this.setState({ value });
     }
-    handleCheckboxChange () {
+    handleCheckboxChange (event) {
         // event.target.value
         // logika filtrowania
         // bez bindowania w constructor'rze this będzie oznaczało <input>
         // const { value } = event.target;
         //  =
-        this.props.onInputCheckboxChange(!this.props.isInStock);
+        this.props.onInputCheckboxChange(event.target.checked);
         // this.setState({ value });
     }
     render () {
@@ -62,9 +62,13 @@ export class ProductTable extends React.Component {
         const rows = [];
         // const sortValue = this.props.sortValue;
         // const products = this.props.products;
-        const { sortValue, products } = this.props;
+        const { sortValue, products, isInStock } = this.props;
         let lastCategory = null;
+
         products.forEach((product) => {
+            if (isInStock && !product.stocked) {
+                return;
+            }
             if (product.category !== lastCategory) {
                 rows.push(<ProductCategoryRow
                     category={product.category}
@@ -80,6 +84,7 @@ export class ProductTable extends React.Component {
                 />);
             } else {
                 const productName = product.name.toLowerCase();
+                // if()
                 if (productName.includes(sortValue)) {
                     rows.push(<ProductRow
                         product={product}
@@ -123,9 +128,9 @@ class ProductCategoryRow extends React.Component {
 class ProductRow extends React.Component {
     render () {
         // let name = this.props.product.name;
-        const { price } = this.props.product;
+        const { price, stocked } = this.props.product;
         let { name } = this.props.product;
-        if (!this.props.product.stocked) {
+        if (!stocked) {
             name = (<span style={{ color: 'red' }}>{name}</span>);
         }
         return (
