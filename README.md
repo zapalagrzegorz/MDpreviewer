@@ -1,3 +1,3 @@
-# MarkDown previewer [react]
+# MarkDown previewer
 
-See it up & running [live](http://markdownpreviewer.surge.sh/) 
+### Podgląd na bieżąco skompilowanej składni MarkDown
